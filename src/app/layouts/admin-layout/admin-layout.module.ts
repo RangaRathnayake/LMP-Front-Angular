@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 
 import { UsersComponent } from 'app/pages/users/users.component';
 import { UserlistComponent } from 'app/pages/userlist/userlist.component';
+import { ProductComponent } from 'app/pages/product/product.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { UserlistComponent } from 'app/pages/userlist/userlist.component';
     NotificationsComponent,
     UpgradeComponent,
     UsersComponent,
-    UserlistComponent
+    UserlistComponent,
+    ProductComponent
   ]
 })
 

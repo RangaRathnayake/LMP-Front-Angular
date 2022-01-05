@@ -1,0 +1,128 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Create Products</h4>
+                    <p class="card-category"></p>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Product Name" [(ngModel)]="proNameE">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Product Name in Sinhala" [(ngModel)]="proNameS">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Product Code" [(ngModel)]="proCode">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Unit Type" [(ngModel)]="proUnitType">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Quality" [(ngModel)]="quality">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button mat-raised-button class="btn btn-success pull-right"
+                                        (click)="save()">save</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button mat-raised-button class="btn btn-warning pull-right"
+                                        (click)="clear()">clear</button>
+                                </div>
+                                <div class="col-md-4" *ngIf="enabaledeactine">
+                                    <button mat-raised-button class="btn btn-danger pull-right"
+                                        (click)="deactive()">Deactive</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <mat-table sortpen [dataSource]="dataSource">
+
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Product Name
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="sinhala">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Product Name in Sinhala
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.sinhala}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="quality">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Product Quality
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.quality}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="code">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Code
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="unitType">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Unit Type
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.unitType}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef> Select
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"><button mat-button
+                                            (click)="getProductData(element.id)">More</button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef=" displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+
+                            <mat-paginator #paginatorpen [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+                            </mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+
+        </div>
+    </div>
+</div>

@@ -29,7 +29,7 @@ export class UserlistComponent implements OnInit {
 
   ifvisivle: boolean = true;
   addnew: boolean = true;
-  enabaledeactine:boolean=false;
+  enabaledeactine: boolean = false;
 
   displayedColumns: string[] = ['name', 'utype.name', 'id'];
   dataSource = <any>[];
@@ -105,7 +105,7 @@ export class UserlistComponent implements OnInit {
           this.category = "";
           this.email = "";
           this.mob = "";
-          this.alart.showNotification('success', 'save');
+          this.alart.showNotification('success', 'user save');
           this.getusetlist();
         })
       } else {
@@ -124,7 +124,7 @@ export class UserlistComponent implements OnInit {
     })
   }
 
-  clear(){
+  clear() {
     this.username = "";
     this.pass = "";
     this.repass = "";
@@ -133,11 +133,11 @@ export class UserlistComponent implements OnInit {
     this.mob = "";
   }
 
-  deactine(){
+  deactine() {
     this.apiCall.post('user/reg', {
       user: {
         id: this.userid,
-        status:3
+        status: 3
       }
     }, data => {
       console.log(data);
@@ -146,7 +146,7 @@ export class UserlistComponent implements OnInit {
       this.email = "";
       this.mob = "";
       this.alart.showNotification('success', 'deactive success');
-      this.enabaledeactine=false;
+      this.enabaledeactine = false;
       this.getusetlist();
     })
   }
@@ -160,7 +160,7 @@ export class UserlistComponent implements OnInit {
       console.log(result);
       this.ifvisivle = false;
       this.addnew = false;
-      this.enabaledeactine=true;
+      this.enabaledeactine = true;
       this.userid = id;
 
       // if(id ==  this.user.id){
