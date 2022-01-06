@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { UsersComponent } from 'app/pages/users/users.component';
 import { UserlistComponent } from 'app/pages/userlist/userlist.component';
 import { ProductComponent } from 'app/pages/product/product.component';
+import { BuyComponent } from 'app/pages/buy/buy.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -24,5 +25,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users', component: UsersComponent },
     { path: 'userlist', component: UserlistComponent },
     { path: 'product', component: ProductComponent },
+    { path: 'buy', component: BuyComponent },
    
 ];

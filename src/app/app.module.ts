@@ -27,6 +27,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { DatePipe } from '@angular/common';
+import { CustomerComponent } from './pages/customer/customer.component';
+
 
 
 
@@ -61,6 +63,7 @@ import { DatePipe } from '@angular/common';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    CustomerComponent,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

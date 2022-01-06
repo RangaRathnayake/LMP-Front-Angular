@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit {
   proNameS;
   proCode;
   proUnitType;
+  proUnitTypeList;
   quality;
 
   proId;
@@ -38,6 +39,15 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductList();
+    this.getUnitType();
+  }
+
+  getUnitType() {
+    this.apiCall.get('unit/all', result => {
+      this.proUnitTypeList = result;
+      console.log(this.proUnitTypeList);
+    })
+
   }
 
   save() {
@@ -48,7 +58,9 @@ export class ProductComponent implements OnInit {
           quality: this.quality,
           sinhala: this.proNameS,
           code: this.proCode,
-          unitType: this.proUnitType
+          unitType: '-',
+          unit: this.proUnitType,
+          status: '1'
         }
       }, data => {
         console.log(data);

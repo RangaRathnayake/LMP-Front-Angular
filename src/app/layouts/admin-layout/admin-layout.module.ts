@@ -22,10 +22,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { UsersComponent } from 'app/pages/users/users.component';
 import { UserlistComponent } from 'app/pages/userlist/userlist.component';
 import { ProductComponent } from 'app/pages/product/product.component';
+import { BuyComponent } from 'app/pages/buy/buy.component';
 
 @NgModule({
   imports: [
@@ -44,7 +47,9 @@ import { ProductComponent } from 'app/pages/product/product.component';
     MatRadioModule,
     MatCheckboxModule,
     MatListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatAutocompleteModule,
   ],
   declarations: [
     DashboardComponent,
@@ -56,7 +61,8 @@ import { ProductComponent } from 'app/pages/product/product.component';
     UpgradeComponent,
     UsersComponent,
     UserlistComponent,
-    ProductComponent
+    ProductComponent,
+    BuyComponent,
   ]
 })
 
