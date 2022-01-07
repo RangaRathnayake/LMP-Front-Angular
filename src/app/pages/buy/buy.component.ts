@@ -46,9 +46,9 @@ export class BuyComponent implements OnInit {
   getCus(mobile) {
     console.log(mobile);
     this.apiCall.get('customer/mobile/' + mobile, result => {
-      this.cus_list = <Array<any>> [result]
+      this.cus_list = result;
       console.log(result);
-
+      console.log("xxxxxxx");
     })
 
   }

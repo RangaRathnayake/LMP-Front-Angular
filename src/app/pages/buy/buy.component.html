@@ -11,18 +11,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
+
+                                
+
+
                                 <div class="col-md-8">
-                                    <form class="example-form">
                                         <mat-form-field class="example-full-width">
                                             <mat-label>Select Customer</mat-label>
                                             <input type="text" placeholder="Search by customer mobile no" matInput [formControl]="searchCus" [matAutocomplete]="auto">
                                             <mat-autocomplete #auto="matAutocomplete">
-                                                <mat-option *ngFor="let x of cus_list" [value]="mobile">
-                                                    {{x.name}} | {{x.mobile}}
+                                                <mat-option *ngFor="let xw of cus_list" [value]="mobile">
+                                                    {{xw.name}}  |  {{xw.mobile}}
                                                 </mat-option>
                                             </mat-autocomplete>
                                         </mat-form-field>
-                                    </form>
                                 </div>
 
                                 <div class="col-2 d-flex justify-content-left">
