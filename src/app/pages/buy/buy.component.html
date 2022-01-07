@@ -17,7 +17,7 @@
                                             <mat-label>Select Customer</mat-label>
                                             <input type="text" placeholder="Search by customer mobile no" matInput [formControl]="searchCus" [matAutocomplete]="auto">
                                             <mat-autocomplete #auto="matAutocomplete">
-                                                <mat-option *ngFor="let x of cus_list" [value]="x.id">
+                                                <mat-option *ngFor="let x of cus_list" [value]="mobile">
                                                     {{x.name}} | {{x.mobile}}
                                                 </mat-option>
                                             </mat-autocomplete>

@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { DatePipe } from '@angular/common';
 import { CustomerComponent } from './pages/customer/customer.component';
+import { SellComponent } from './pages/sell/sell.component';
 
 
 
@@ -64,6 +65,7 @@ import { CustomerComponent } from './pages/customer/customer.component';
     AdminLayoutComponent,
     LoginComponent,
     CustomerComponent,
+    SellComponent,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

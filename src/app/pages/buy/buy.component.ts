@@ -25,15 +25,17 @@ export class BuyComponent implements OnInit {
   totalAmount;
   status;
   userId;
+
   
 
 
   constructor(private matDialog: MatDialog, private apiCall: ApicallService, private alart: AlartService) { }
 
   ngOnInit(): void {
-    this.getCus('');
-    this.searchCus.valueChanges.pipe().subscribe(id => {
-      this.getCus(id)
+    //this.getCus('');
+    this.searchCus.valueChanges.pipe().subscribe(mobile => {
+      startWith(''),
+      this.getCus(mobile)
     })
     this.getProducts();
   }
@@ -41,8 +43,9 @@ export class BuyComponent implements OnInit {
   cus_list: any[] = []
   searchCus = new FormControl()
 
-  getCus(id) {
-    this.apiCall.get('customer/' + id, result => {
+  getCus(mobile) {
+    console.log(mobile);
+    this.apiCall.get('customer/mobile/' + mobile, result => {
       this.cus_list = <Array<any>> [result]
       console.log(result);
 
