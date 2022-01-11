@@ -12,6 +12,7 @@ import { UsersComponent } from 'app/pages/users/users.component';
 import { UserlistComponent } from 'app/pages/userlist/userlist.component';
 import { ProductComponent } from 'app/pages/product/product.component';
 import { BuyComponent } from 'app/pages/buy/buy.component';
+import { SellComponent } from 'app/pages/sell/sell.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -26,5 +27,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'userlist', component: UserlistComponent },
     { path: 'product', component: ProductComponent },
     { path: 'buy', component: BuyComponent },
+    { path: 'sell', component: SellComponent },
    
 ];

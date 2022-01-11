@@ -29,6 +29,7 @@ import { UsersComponent } from 'app/pages/users/users.component';
 import { UserlistComponent } from 'app/pages/userlist/userlist.component';
 import { ProductComponent } from 'app/pages/product/product.component';
 import { BuyComponent } from 'app/pages/buy/buy.component';
+import { SellComponent } from 'app/pages/sell/sell.component';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { BuyComponent } from 'app/pages/buy/buy.component';
     UserlistComponent,
     ProductComponent,
     BuyComponent,
+    SellComponent,
   ]
 })
 
