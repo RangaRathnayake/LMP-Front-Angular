@@ -6,11 +6,13 @@ import { AlartService } from 'app/service/alart.service';
 import { ApicallService } from 'app/service/apicall.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerComponent } from '../customer/customer.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
-  styleUrls: ['./buy.component.scss']
+  styleUrls: ['./buy.component.scss'],
+  providers: [DatePipe]
 })
 export class BuyComponent implements OnInit {
 
@@ -25,11 +27,10 @@ export class BuyComponent implements OnInit {
   totalAmount;
   status;
   userId;
+  myDate = new Date();
 
-  
 
-
-  constructor(private matDialog: MatDialog, private apiCall: ApicallService, private alart: AlartService) { }
+  constructor(private matDialog: MatDialog, private apiCall: ApicallService, private alart: AlartService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     //this.getCus('');
@@ -68,8 +69,47 @@ export class BuyComponent implements OnInit {
     });
   }
 
-  save(){
+  calTotalAmount() {
+    this.apiCall.get('product/' + this.product, result => {
+      this.unitType = result.unit;
+      this.totalAmount = this.unitType * this.unitPrice;
 
+      console.log(result);
+      console.log(this.totalAmount);
+
+    })
+  }
+
+  save(){
+    if (this.product && this.qty && this.unitPrice) {
+      this.apiCall.post('buy/save', {
+        buy: {
+          //customer: this.cusId,
+          customer: '1',
+          //user: this.userId,
+          user: '1',
+          date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+          product: this.product,
+          qty: this.qty,
+          //unit: this.unitType,
+          unit: '1000',
+          unitPrice: this.unitPrice,
+          //total: this.totalAmount,
+          total: '200',
+          status: '1'
+        }
+      }, data => {
+        console.log(data);
+        this.product = "";
+        this.qty = "";
+        this.unitPrice = "";
+        this.totalAmount = "";
+        //this.alart.showNotification('success', 'product save');
+        //this.getProductList();
+      })
+    } else {
+      this.alart.showNotification('warning', 'check feilds');
+    }
   }
 
   clear(){

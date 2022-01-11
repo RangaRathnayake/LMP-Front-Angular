@@ -51,7 +51,7 @@ export class ProductComponent implements OnInit {
   }
 
   save() {
-    if (this.proNameE && this.proNameS && this.proCode && this.proUnitType) {
+    if (this.proNameE && this.proNameS && this.proCode && this.proUnitType && this.quality) {
       this.apiCall.post('product/save', {
         product: {
           name: this.proNameE,
