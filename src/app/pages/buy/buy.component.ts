@@ -12,10 +12,9 @@ import { DatePipe } from '@angular/common';
   selector: 'app-buy',
   templateUrl: './buy.component.html',
   styleUrls: ['./buy.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class BuyComponent implements OnInit {
-
   product;
   productList;
 
@@ -28,39 +27,69 @@ export class BuyComponent implements OnInit {
   status;
   userId;
   myDate = new Date();
+  allCustomers;
+  myControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+  options: string[] = [];
+  selectedMob;
 
+  selectedCus;
 
-  constructor(private matDialog: MatDialog, private apiCall: ApicallService, private alart: AlartService, private datePipe: DatePipe) { }
+  constructor(
+    private matDialog: MatDialog,
+    private apiCall: ApicallService,
+    private alart: AlartService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
-    //this.getCus('');
-    this.searchCus.valueChanges.pipe().subscribe(mobile => {
+    this.loadCus();
+    this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      this.getCus(mobile)
-    })
+      map((value) => this._filter(value))
+    );
     this.getProducts();
   }
 
-  cus_list: any[] = []
-  searchCus = new FormControl()
+  change() {
+    console.log(this.selectedMob);
+  }
 
-  getCus(mobile) {
-    console.log(mobile);
-    this.apiCall.get('customer/mobile/' + mobile, result => {
-      this.cus_list = result;
-      console.log(result);
-      console.log("xxxxxxx");
-    })
+  loadCus() {
+    this.apiCall.get('customer/all/', (result) => {
+      this.allCustomers = result;
+      this.allCustomers.forEach((element) => {
+        this.options.push(element.mobile);
+      });
+      console.log('(-----------------)');
+      console.log(this.options);
+      console.log('(-----------------)');
+    });
+  }
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    this.selectedMob = filterValue;
+    this.getCus(this.selectedMob);
+    return this.options.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
+
+  getCus(mob) {
+    if (mob) {
+      const cus = this.allCustomers.filter((cus) => cus.mobile == mob);
+      this.selectedCus = cus[0];
+      console.log(this.selectedCus);
+    }
   }
 
   getProducts() {
-    this.apiCall.get('product/all', result => {
+    this.apiCall.get('product/all', (result) => {
       this.productList = result;
       console.log(this.productList);
-      console.log("Products_done");
-    })
-
+      console.log('Products_done');
+    });
   }
 
   public createCus() {
@@ -70,50 +99,49 @@ export class BuyComponent implements OnInit {
   }
 
   calTotalAmount() {
-    this.apiCall.get('product/' + this.product, result => {
+    this.apiCall.get('product/' + this.product, (result) => {
       this.unitType = result.unit;
       this.totalAmount = this.unitType * this.unitPrice;
 
       console.log(result);
       console.log(this.totalAmount);
-
-    })
+    });
   }
 
-  save(){
+  save() {
     if (this.product && this.qty && this.unitPrice) {
-      this.apiCall.post('buy/save', {
-        buy: {
-          //customer: this.cusId,
-          customer: '1',
-          //user: this.userId,
-          user: '1',
-          date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
-          product: this.product,
-          qty: this.qty,
-          //unit: this.unitType,
-          unit: '1000',
-          unitPrice: this.unitPrice,
-          //total: this.totalAmount,
-          total: '200',
-          status: '1'
+      this.apiCall.post(
+        'buy/save',
+        {
+          buy: {
+            customer: this.selectedCus.id,
+            //user: this.userId,
+            user: '1',
+            date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+            product: this.product,
+            qty: this.qty,
+            //unit: this.unitType,
+            unit: '1000',
+            unitPrice: this.unitPrice,
+            //total: this.totalAmount,
+            total: '200',
+            status: '1',
+          },
+        },
+        (data) => {
+          console.log(data);
+          this.product = '';
+          this.qty = '';
+          this.unitPrice = '';
+          this.totalAmount = '';
+          //this.alart.showNotification('success', 'product save');
+          //this.getProductList();
         }
-      }, data => {
-        console.log(data);
-        this.product = "";
-        this.qty = "";
-        this.unitPrice = "";
-        this.totalAmount = "";
-        //this.alart.showNotification('success', 'product save');
-        //this.getProductList();
-      })
+      );
     } else {
       this.alart.showNotification('warning', 'check feilds');
     }
   }
 
-  clear(){
-
-  }
-
+  clear() {}
 }
