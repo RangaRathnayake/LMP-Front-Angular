@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-6">
 
-                            <mat-table sortpen [dataSource]="dataSource">
+                            <!-- <mat-table sortpen [dataSource]="dataSource">
 
                                 <ng-container matColumnDef="name">
                                     <mat-header-cell mat-sort-header *matHeaderCellDef>Product Name
@@ -92,7 +92,7 @@
                                 <ng-container matColumnDef="quality">
                                     <mat-header-cell mat-sort-header *matHeaderCellDef>Product Quality
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.quality}} </mat-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.unitType}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="code">
@@ -101,10 +101,10 @@
                                     <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
                                 </ng-container>
 
-                                <ng-container matColumnDef="unitType">
+                                <ng-container matColumnDef="Unit  Type">
                                     <mat-header-cell mat-sort-header *matHeaderCellDef>Unit Type
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.unitType}} </mat-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.unitType} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="id">
@@ -120,7 +120,7 @@
                             </mat-table>
 
                             <mat-paginator #paginatorpen [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
-                            </mat-paginator>
+                            </mat-paginator> -->
 
                         </div>
                     </div>
