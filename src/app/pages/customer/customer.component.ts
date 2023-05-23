@@ -37,6 +37,7 @@ export class CustomerComponent implements OnInit {
         this.mob_no = "";
         this.address = "";
         this.alart.showNotification('success', 'customer save');
+        window.location.reload();
       })
     } else {
       this.alart.showNotification('warning', 'check feilds');

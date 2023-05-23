@@ -1,0 +1,27 @@
+.bgLog {
+    // width: 100%;
+    // height: 100%;
+    // background: url('/assets/img/bg_cover.jpg') no-repeat center;
+    // background-size: 100% 100%;
+    // background-position: top center;
+
+    background-image: url('/assets/img/bg_cover.jpg');
+    height: auto;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+// .bgLog{
+//     margin:0px;
+//  height:100%;
+//  width:100%;
+//  background:url('/assets/img/bg_cover.jpg')no-repeat center center fixed; 
+//  -webkit-background-size:cover;
+//  -o-background-size:cover;
+//  -moz-background-size:cover;
+//  background-size:cover;
+// }
+
+

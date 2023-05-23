@@ -9,6 +9,7 @@ import { CustomerComponent } from '../customer/customer.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sell',
@@ -18,15 +19,12 @@ import { MatSort } from '@angular/material/sort';
 export class SellComponent implements OnInit {
 
 
-
-  
-
-
-  displayedColumns: string[] = [ 'unitPrice', 'qty', 'subTotal', 'product'];
+  displayedColumns: string[] = ['product', 'qty', 'unitPrice', 'subTotal', 'columndelete'];
 
 
   product;
   productList;
+  filterProduct;
 
   cusId;
   creDate;
@@ -36,24 +34,33 @@ export class SellComponent implements OnInit {
   totalAmount;
   status;
   userId;
-
+  myDate = new Date();
   cusid;
 
   sellItems = [];
   dataSource :any;
+  allCustomers;
+  myControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+  options: string[] = [];
+  selectedMob;
+  selectedCus;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
 
-  constructor(private matDialog: MatDialog, private apiCall: ApicallService, private alart: AlartService) { }
+  constructor(private matDialog: MatDialog,
+     private apiCall: ApicallService,
+      private alart: AlartService,
+      private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-      //this.getCus('');
-      this.searchCus.valueChanges.pipe().subscribe(mobile => {
-        startWith(''),
-        this.getCus(mobile)
-      })
+    this.loadCus();
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
       this.getProducts();
   }
 
@@ -62,14 +69,33 @@ export class SellComponent implements OnInit {
   cus_list: any[] = []
   searchCus = new FormControl()
 
-  getCus(mobile) {
-    console.log(mobile);
-    this.apiCall.get('customer/mobile/' + mobile, result => {
-      this.cus_list = result;
+  loadCus() {
+    this.apiCall.get('customer/all/', (result) => {
+      this.allCustomers = result;
+      this.allCustomers.forEach((element) => {
+        this.options.push(element.mobile);
+      });
+      console.log('(-----------------)');
       console.log(result);
-      console.log("xxxxxxx");
-    })
+      console.log('(-----------------)');
+    });
+  }
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    this.selectedMob = filterValue;
+    this.getCus(this.selectedMob);
+    return this.options.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
+
+  getCus(mob) {
+    if (mob) {
+      const cus = this.allCustomers.filter((cus) => cus.mobile == mob);
+      this.selectedCus = cus[0];
+      console.log(this.selectedCus);
+    }
   }
 
   getProducts() {
@@ -87,46 +113,88 @@ export class SellComponent implements OnInit {
     });
   }
 
-  add(){
+  getProdName(productId) {
+    console.log(productId);
+    let findedData = this.productList.find(i => i.id === productId);
+    if (typeof findedData === 'undefined') {
+      return null;
+    }
+    console.log(findedData.name);
+    this.filterProduct = findedData;
+    return findedData;
+  }
 
+  add(){
+    this.getProdName(this.product);
    var item ={
-      
       unitPrice: this.unitPrice,
       qty: this.qty,
       subTotal: Number(this.unitPrice) * Number(this.qty),
-      product: this.product
+      product: this.product,
+      productName: this.filterProduct.name + ' | ' + this.filterProduct.quality
     }
 
     this.sellItems.push(item);
     console.log(this.sellItems);
-    //this.dataSource=this.sellItems;
+
+    let sum: number = 0;
+    this.sellItems.forEach(a => sum += a.subTotal);
+    this.totalAmount = sum;
    
     this.dataSource = new MatTableDataSource(this.sellItems);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.qty = '';
+    this.unitPrice = '';
   }
 
   save(){
-
-    this.apiCall.post('sell/save', {
-
-      sell:{
-        customer: 1,
-        date: "2022-12-12T00:40:32.000Z",
-        total: 500,
-        status: 1,
-        sellItems: this.sellItems
-           
+    if (this.selectedCus) {
+      let userD = JSON.parse(localStorage.getItem('user'));;
+      this.userId = userD.id;
+      this.apiCall.post(
+        'sell/save',
+        {
+          sell: {
+            customer: this.selectedCus.id,
+            user: this.userId,
+            date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+            product: this.product,
+            sellItems: this.sellItems,
+            total: this.totalAmount,
+            status: '1',
+          },
+         
+        },
+        (data) => {
+          console.log(data);
+          this.sellItems = [];
+          this.dataSource = [];
+          this.product = '';
+          this.qty = '';
+          this.unitPrice = '';
+          this.totalAmount = '';
+          this.selectedCus = '';
+          // this.alart.showNotification('success', 'product save');
+          //this.getProductList();
+        }
+      );
+    } else {
+      this.alart.showNotification('warning', 'Select Customer');
     }
-
-    }, data => {
-      console.log(data);
-    })
-
   }
 
   clear(){
 
+  }
+
+  delete(elm) {
+    console.log(elm);
+    this.dataSource.data = this.dataSource.data.filter(i => i !== elm)
+    this.sellItems = this.dataSource.data;
+    let sum: number = 0;
+    this.sellItems.forEach(a => sum += a.subTotal);
+    this.totalAmount = sum;
   }
 
 }

@@ -9,15 +9,15 @@ declare interface RouteInfo {
   class: string;
 }
 export let ROUTES: RouteInfo[] = [
-  // { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-  // { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
-  // { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
-  // { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+  { path: '/product', title: 'Product', icon: 'inventory', class: '' },
+  { path: '/buy', title: 'Buy', icon: 'arrow_forward', class: '' },
+  { path: '/sell', title: 'Sell', icon: 'arrow_back', class: '' },
+  { path: '/userlist', title: 'Users', icon: 'group_add', class: '' },
   // { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
   // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
   // { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
   // { path: '/users', title: 'Users',  icon:'notifications', class: '' },
-  // { path: '/userlist', title: 'Users', icon: 'notifications', class: '' },
   // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 

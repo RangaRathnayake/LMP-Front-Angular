@@ -15,22 +15,10 @@
                   <form class="example-form">
                     <mat-form-field class="example-full-width">
                       <mat-label>Mobile Number</mat-label>
-                      <input
-                        type="text"
-                        placeholder="Pick one"
-                        aria-label="Number"
-                        matInput
-                        [formControl]="myControl"
-                        [matAutocomplete]="auto"
-                      />
-                      <mat-autocomplete
-                        autoActiveFirstOption
-                        #auto="matAutocomplete"
-                      >
-                        <mat-option
-                          *ngFor="let option of filteredOptions | async"
-                          [value]="option"
-                        >
+                      <input type="text" placeholder="Pick Mobile Number" aria-label="Number" matInput
+                        [formControl]="myControl" [matAutocomplete]="auto" />
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                           {{ option }}
                         </mat-option>
                       </mat-autocomplete>
@@ -39,33 +27,29 @@
                 </div>
 
                 <div class="col-2 d-flex justify-content-left">
-                  <button
-                    mat-fab
-                    matTooltip="Create New Customer"
-                    (click)="createCus()"
-                    color="primary"
-                  >
+                  <button mat-fab matTooltip="Create New Customer" (click)="createCus()" color="primary">
                     <mat-icon>add</mat-icon>
                   </button>
                 </div>
               </div>
 
-              <div class="row" *ngIf="selectedCus">
-                <p>{{ selectedCus.name }}</p>
+              <div class="row mb-3" *ngIf="selectedCus">
+                <div class="col-md-10">
+                  <span><b><u>Selected Customer Details</u></b></span>
+                  <br>
+                  <span>Customer Name : {{selectedCus.name}}</span>
+                  <br>
+                  <span>Customer Address : {{selectedCus.address}}</span>
+
+                </div>
               </div>
 
               <div class="row">
                 <div class="col-md-10">
                   <mat-form-field>
                     <mat-label>Select Product</mat-label>
-                    <mat-select
-                      [(ngModel)]="product"
-                      (ngModelChange)="getProducts()"
-                    >
-                      <mat-option
-                        *ngFor="let prod of productList"
-                        [value]="prod.id"
-                      >
+                    <mat-select [(ngModel)]="product">
+                      <mat-option *ngFor="let prod of productList" [value]="prod.id">
                         {{ prod.name }} | {{ prod.quality }}
                       </mat-option>
                     </mat-select>
@@ -76,7 +60,7 @@
               <div class="row">
                 <div class="col-md-10">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Quantity" [(ngModel)]="qty" />
+                    <input matInput placeholder="Quantity" type="number" [(ngModel)]="qty" />
                   </mat-form-field>
                 </div>
               </div>
@@ -84,94 +68,74 @@
               <div class="row">
                 <div class="col-md-10">
                   <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Unit Price"
-                      [(ngModel)]="unitPrice"
-                    />
+                    <input matInput placeholder="Unit Price" type="number" [(ngModel)]="unitPrice" />
                   </mat-form-field>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-4">
-                  <button
-                    mat-raised-button
-                    class="btn btn-success pull-right"
-                    (click)="calTotalAmount()"
-                  >
-                    save
+                  <button mat-raised-button class="btn btn-success pull-right" (click)="add()">
+                    add
                   </button>
                 </div>
                 <div class="col-md-4">
-                  <button
-                    mat-raised-button
-                    class="btn btn-warning pull-right"
-                    (click)="clear()"
-                  >
+                  <button mat-raised-button class="btn btn-warning pull-right" (click)="clear()">
                     clear
                   </button>
                 </div>
-                <!-- <div class="col-md-4" *ngIf="enabaledeactine">
-                                    <button mat-raised-button class="btn btn-danger pull-right"
-                                        (click)="deactive()">Deactive</button>
-                                </div> -->
               </div>
+
             </div>
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
 
-                            <mat-table sortpen [dataSource]="dataSource">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;">
 
-                                <ng-container matColumnDef="name">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Product Name
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                                </ng-container>
+                <ng-container matColumnDef="product">
+                  <th mat-header-cell *matHeaderCellDef> Product </th>
+                  <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+                </ng-container>
 
-                                <ng-container matColumnDef="sinhala">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Product Name in Sinhala
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.sinhala}} </mat-cell>
-                                </ng-container>
+                <ng-container matColumnDef="qty">
+                  <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                  <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+                </ng-container>
 
-                                <ng-container matColumnDef="quality">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Product Quality
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.quality}} </mat-cell>
-                                </ng-container>
+                <ng-container matColumnDef="unitPrice">
+                  <th mat-header-cell *matHeaderCellDef> Unit Price </th>
+                  <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+                </ng-container>
 
-                                <ng-container matColumnDef="code">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Code
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
-                                </ng-container>
+                <ng-container matColumnDef="subTotal">
+                  <th mat-header-cell *matHeaderCellDef> Amount </th>
+                  <td mat-cell *matCellDef="let element"> {{element.subTotal | number : '1.2-2'}} </td>
+                </ng-container>
 
-                                <ng-container matColumnDef="unitType">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Unit Type
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.unitType}} </mat-cell>
-                                </ng-container>
+                <ng-container matColumnDef="columndelete">
+                  <th mat-header-cell *matHeaderCellDef> </th>
+                  <td mat-cell *matCellDef="let element; let idx = index"><mat-icon
+                      (click)="delete(element)">delete</mat-icon> </td>
+                </ng-container>
 
-                                <ng-container matColumnDef="id">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef> Select
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"><button mat-button
-                                            (click)="getProductData(element.id)">More</button>
-                                    </mat-cell>
-                                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
 
-                                <mat-header-row *matHeaderRowDef=" displayedColumns"></mat-header-row>
-                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                            </mat-table>
+              <br>
+              <div class="row" *ngIf="buyItems.length > 0">
+                <div class="col-md-12" style="float: right;">
+                  <span><b>Total Amount : {{totalAmount | number : '1.2-2'}}</b></span>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                  <button mat-raised-button class="w-100 btn btn-lg btn-info" (click)="save()">Pay</button>
+                </div>
+              </div>
 
-                            <mat-paginator #paginatorpen [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
-                            </mat-paginator>
-
-                        </div> -->
+            </div>
           </div>
         </div>
       </div>
-      <!-- </div> -->
     </div>
   </div>
 </div>
