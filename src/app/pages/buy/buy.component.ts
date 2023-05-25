@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-buy',
@@ -44,6 +45,8 @@ export class BuyComponent implements OnInit {
 
   buyItems = [];
   dataSource: any;
+
+  reportPath = environment.reportPath;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -150,21 +153,25 @@ export class BuyComponent implements OnInit {
     if (this.selectedCus) {
       let userD = JSON.parse(localStorage.getItem('user'));;
       this.userId = userD.id;
+      let buy = {
+        customer: this.selectedCus.id,
+        cusName: this.selectedCus.name,
+        user: this.userId,
+        date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+        product: this.product,
+        buyItems: this.buyItems,
+        total: this.totalAmount,
+        status: '1',
+        receiptNo: 0
+      }
       this.apiCall.post(
         'buy/save',
         {
-          buy: {
-            customer: this.selectedCus.id,
-            user: this.userId,
-            date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
-            product: this.product,
-            buyItems: this.buyItems,
-            total: this.totalAmount,
-            status: '1',
-          },
+          buy:buy
         },
         (data) => {
           console.log(data);
+          buy.receiptNo = data.id;
           this.buyItems = [];
           this.dataSource = [];
           this.product = '';
@@ -172,7 +179,8 @@ export class BuyComponent implements OnInit {
           this.unitPrice = '';
           this.totalAmount = '';
           this.selectedCus = '';
-          window.print();
+          // window.print();
+          window.location.href= this.reportPath + 'buy?data=' + JSON.stringify(buy);
           // this.alart.showNotification('success', 'product save');
           //this.getProductList();
         }
