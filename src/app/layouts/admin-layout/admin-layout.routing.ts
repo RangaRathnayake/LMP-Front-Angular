@@ -13,6 +13,8 @@ import { UserlistComponent } from 'app/pages/userlist/userlist.component';
 import { ProductComponent } from 'app/pages/product/product.component';
 import { BuyComponent } from 'app/pages/buy/buy.component';
 import { SellComponent } from 'app/pages/sell/sell.component';
+import { BuyReceiptsComponent } from 'app/pages/buy-receipts/buy-receipts.component';
+import { SellReceiptsComponent } from 'app/pages/sell-receipts/sell-receipts.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -28,5 +30,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'product', component: ProductComponent },
     { path: 'buy', component: BuyComponent },
     { path: 'sell', component: SellComponent },
+    { path: 'buyReceipts', component: BuyReceiptsComponent },
+    { path: 'sellReceipts', component: SellReceiptsComponent },
    
 ];

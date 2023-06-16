@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           console.log(data);
           console.log(data.id);
           console.log('-----------------');
-          this.alart.showNotification('success', 'Welcome to RMC System');
+          this.alart.showNotification('success', 'Welcome to LMP System');
           localStorage.setItem('user', JSON.stringify(data));
           window.location.href = '/';
         } else {

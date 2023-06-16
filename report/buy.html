@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>LMP Traders</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: small;
+    }
+
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .right {
+      text-align: left;
+    }
+
+    .alr {
+      text-align: right;
+    }
+
+    td,
+    th,
+    tr,
+    table {
+      border-top: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    @media print {
+
+      .no-print,
+      .no-print * {
+        display: none !important;
+      }
+    }
+
+    @media print {
+      #printPageButton {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body style="margin: 5px" onload="window.print()" onfocus="window.close()">
+  <div style="text-align: center">
+    <br />
+    <div style="width: 100%">
+      <table style="width: 100%">
+        <tr>
+          <td style="text-align: center; font-weight: bold">
+            <h3>
+              <!-- <span id="header"></span> -->
+              <b>LMP Traders</b>
+              <br />Alawwa, <br />-. <br />
+              Tel : 0768323741 <br />
+              Date : <span id="day"></span><br>
+              Reciept No : <span id="id"></span>
+            </h3>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <h3 style="text-align: center">BUY RECEIPT</h3>
+    <h3 style="text-align: center" id="cusName"> </h3>
+    <div>
+      <table id="proList" style="
+            margin-left: 50px;
+            margin-right: 75px;
+            width: 70%;
+            font-weight: bold;
+          ">
+        <!-- <tr>
+          <td class="left">Warrant Rs.</td>
+          <td id="warrant" class="alr"></td>
+        </tr> -->
+      </table>
+    </div>
+    <div style="text-align: justify"></div>
+    <hr class="no-print" />
+    <button class="no-print" id="printPageButton" onclick="window.print()">
+      PRINT
+    </button>
+    <br />
+  </div>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript">
+
+    let searchParams = new URLSearchParams(window.location.search);
+    // console.log(searchParams);
+    searchParams.has('data'); // true
+    if (searchParams.has('data')) {
+      let param = JSON.parse(searchParams.get('data'));
+      console.log(param);
+      // console.log(param.transaction.id);
+      // num = this.numberToWords(param.transaction.total);
+      // console.log(num);
+      $('#cusName').html(param.cusName);
+      // $('#num').html(num + ' only');
+      $('#id').html(param.receiptNo);
+      // $('#amount').html(param.transaction.total);
+      // $('#warrant').html(param.transaction.warant);
+      // $('#arrears').html(param.transaction.arrears);
+      let row = `<tr>
+          <td class="center" style="border: 1px solid black;">Product Name</td>
+          <td class="center" style="border: 1px solid black;">Qty</td>
+          <td class="center" style="border: 1px solid black;">Rate</td>
+          <td class="center" style="border: 1px solid black;">Amount</td>
+        </tr>`;
+      param.buyItems.forEach(element => {
+        console.log(element);
+        let r = `<tr>
+                  <td>${element.productName}</td>
+                  <td>${element.qty}</td>
+                  <td>${element.unitPrice}</td>
+                  <td class="alr">${element.subTotal}</td>
+                </tr>`;
+        row += r;
+      });
+      let lr = `<tr>
+          <td class="center" style="border: 1px solid black;">Full Total</td>
+          <td class="center" style="border: 1px solid black;"></td>
+          <td class="center" style="border: 1px solid black;"></td>
+          <td class="center" style="border: 1px solid black;">${param.total}</td>
+        </tr>`;
+      row += lr;
+      $('#proList').html(row);
+
+    }
+
+
+  </script>
+</body>
+
+</html>
