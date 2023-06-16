@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>R M C CREDIT & INVESTMENT (PVT) LTD</title>
+  <title>LMP Traders</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <style>
     body {
@@ -27,6 +27,14 @@
       text-align: right;
     }
 
+    td,
+    th,
+    tr,
+    table {
+      border-top: 1px solid black;
+      border-collapse: collapse;
+    }
+
     @media print {
 
       .no-print,
@@ -43,7 +51,7 @@
   </style>
 </head>
 
-<body style="margin: 5px">
+<body style="margin: 5px" onload="window.print()" onfocus="window.close()">
   <div style="text-align: center">
     <br />
     <div style="width: 100%">
@@ -124,7 +132,7 @@
           <td class="center" style="border: 1px solid black;"></td>
           <td class="center" style="border: 1px solid black;">${param.total}</td>
         </tr>`;
-        row += lr;
+      row += lr;
       $('#proList').html(row);
 
     }

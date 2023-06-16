@@ -29,6 +29,9 @@ export class BuyComponent implements OnInit {
   cusId;
   creDate;
   qty;
+  clearQty;
+  wastage = 0;
+  checkboxValue;
   unitType;
   unitPrice;
   totalAmount;
@@ -126,13 +129,21 @@ export class BuyComponent implements OnInit {
   }
 
   add() {
+    if(this.wastage === null){
+      this.wastage = 0;
+      this.clearQty = this.qty;
+    }
+    else{
+      this.clearQty = this.qty - this.wastage;
+    }
     this.getProdName(this.product);
     var item = {
       unitPrice: this.unitPrice,
-      qty: this.qty,
-      subTotal: Number(this.unitPrice) * Number(this.qty),
+      qty: this.clearQty,
+      subTotal: Number(this.unitPrice) * Number(this.clearQty),
       product: this.product,
-      productName: this.filterProduct.name + ' | ' + this.filterProduct.quality
+      productName: this.filterProduct.name + ' | ' + this.filterProduct.quality,
+      wastages: this.wastage
     }
 
     this.buyItems.push(item);
@@ -147,6 +158,9 @@ export class BuyComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.qty = '';
     this.unitPrice = '';
+    this.clearQty = '';
+    this.wastage = 0;
+    this.checkboxValue = false;
   }
 
   save() {
@@ -179,8 +193,7 @@ export class BuyComponent implements OnInit {
           this.unitPrice = '';
           this.totalAmount = '';
           this.selectedCus = '';
-          // window.print();
-          window.location.href= this.reportPath + 'buy?data=' + JSON.stringify(buy);
+          window.location.href= this.reportPath + 'buy_copy?data=' + JSON.stringify(buy);
           // this.alart.showNotification('success', 'product save');
           //this.getProductList();
         }

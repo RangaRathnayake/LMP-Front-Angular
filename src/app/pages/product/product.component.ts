@@ -52,7 +52,7 @@ export class ProductComponent implements OnInit {
 
   save() {
     if (this.proNameE && this.proNameS && this.proCode && this.proUnitType && this.quality) {
-      this.apiCall.post('product/save', {
+      let obj = {
         product: {
           name: this.proNameE,
           quality: this.quality,
@@ -62,7 +62,9 @@ export class ProductComponent implements OnInit {
           unit: this.proUnitType,
           status: '1'
         }
-      }, data => {
+      }
+      console.log(obj);
+      this.apiCall.post('product/save', obj, data => {
         console.log(data);
         this.proNameE = "";
         this.proNameS = "";

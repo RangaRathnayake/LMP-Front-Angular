@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-sell',
@@ -45,6 +46,8 @@ export class SellComponent implements OnInit {
   options: string[] = [];
   selectedMob;
   selectedCus;
+
+  reportPath = environment.reportPath;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -152,22 +155,25 @@ export class SellComponent implements OnInit {
     if (this.selectedCus) {
       let userD = JSON.parse(localStorage.getItem('user'));;
       this.userId = userD.id;
+      let sell = {
+        customer: this.selectedCus.id,
+        user: this.userId,
+        date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+        product: this.product,
+        sellItems: this.sellItems,
+        total: this.totalAmount,
+        status: '1',
+        receiptNo: 0
+      }
       this.apiCall.post(
         'sell/save',
         {
-          sell: {
-            customer: this.selectedCus.id,
-            user: this.userId,
-            date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
-            product: this.product,
-            sellItems: this.sellItems,
-            total: this.totalAmount,
-            status: '1',
-          },
+          sell: sell
          
         },
         (data) => {
           console.log(data);
+          sell.receiptNo = data.id;
           this.sellItems = [];
           this.dataSource = [];
           this.product = '';
@@ -175,6 +181,7 @@ export class SellComponent implements OnInit {
           this.unitPrice = '';
           this.totalAmount = '';
           this.selectedCus = '';
+          window.location.href= this.reportPath + 'sell?data=' + JSON.stringify(sell);
           // this.alart.showNotification('success', 'product save');
           //this.getProductList();
         }
