@@ -68,6 +68,6 @@ import { CustomerComponent } from './pages/customer/customer.component';
     // SellComponent,
   ],
   providers: [DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

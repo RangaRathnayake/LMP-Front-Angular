@@ -3,7 +3,7 @@ import { AlartService } from 'app/service/alart.service';
 import { ApicallService } from 'app/service/apicall.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-buy-receipts',
@@ -13,8 +13,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class BuyReceiptsComponent implements OnInit {
 
   buyReceiptList;
+  // dataSources:any;
 
-  displayedColumns: string[] = ['name', 'utype.name', 'id'];
+  displayedColumns: string[] = ['name', 'utype.name', 'id', 'receptid'];
   dataSource = <any>[];
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
