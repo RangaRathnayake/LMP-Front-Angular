@@ -30,6 +30,7 @@ import { UserlistComponent } from 'app/pages/userlist/userlist.component';
 import { ProductComponent } from 'app/pages/product/product.component';
 import { BuyComponent } from 'app/pages/buy/buy.component';
 import { SellComponent } from 'app/pages/sell/sell.component';
+import { BuyReceiptsComponent } from 'app/pages/buy-receipts/buy-receipts.component';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { SellComponent } from 'app/pages/sell/sell.component';
     ProductComponent,
     BuyComponent,
     SellComponent,
+    BuyReceiptsComponent
   ]
 })
 

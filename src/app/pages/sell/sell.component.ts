@@ -134,7 +134,8 @@ export class SellComponent implements OnInit {
       qty: this.qty,
       subTotal: Number(this.unitPrice) * Number(this.qty),
       product: this.product,
-      productName: this.filterProduct.name + ' | ' + this.filterProduct.quality
+      productName: this.filterProduct.name + ' | ' + this.filterProduct.quality,
+      productSinName: this.filterProduct.sinhala + ' | ' + this.filterProduct.quality
     }
 
     this.sellItems.push(item);
@@ -157,6 +158,8 @@ export class SellComponent implements OnInit {
       this.userId = userD.id;
       let sell = {
         customer: this.selectedCus.id,
+        cusName: this.selectedCus.name,
+        cusMobNo: this.selectedCus.mobile,
         user: this.userId,
         date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
         product: this.product,
@@ -181,7 +184,7 @@ export class SellComponent implements OnInit {
           this.unitPrice = '';
           this.totalAmount = '';
           this.selectedCus = '';
-          window.location.href= this.reportPath + 'sell?data=' + JSON.stringify(sell);
+          window.location.href= this.reportPath + 'sell.html?data=' + JSON.stringify(sell);
           // this.alart.showNotification('success', 'product save');
           //this.getProductList();
         }
