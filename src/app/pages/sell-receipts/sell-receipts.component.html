@@ -1,1 +1,69 @@
-<p>sell-receipts works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title">Reprint or Cancel Sell Receipts</h4>
+                    <p class="card-category">*Receipts issued today can be cancelled</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <mat-table sortpen [dataSource]="dataSource">
+
+                                <ng-container matColumnDef="recId">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Receipt No</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="dateTime">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Date
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.date | date: 'yyyy-MM-dd'}} / {{element.time}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cus_name">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Customer
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.cus_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="total">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Amount
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.total}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Reprint
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"><button mat-button
+                                            (click)="getuserdata(element.id)">Reprint</button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="receptid">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Cancel
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"><button mat-button
+                                            (click)="getuserdata(element.id)">Cancel</button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef=" displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+
+                            <mat-paginator #paginatorpen [pageSizeOptions]="[10,100,200]" showFirstLastButtons>
+                            </mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

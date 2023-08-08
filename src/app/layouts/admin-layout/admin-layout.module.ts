@@ -31,6 +31,7 @@ import { ProductComponent } from 'app/pages/product/product.component';
 import { BuyComponent } from 'app/pages/buy/buy.component';
 import { SellComponent } from 'app/pages/sell/sell.component';
 import { BuyReceiptsComponent } from 'app/pages/buy-receipts/buy-receipts.component';
+import { SellReceiptsComponent } from 'app/pages/sell-receipts/sell-receipts.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { BuyReceiptsComponent } from 'app/pages/buy-receipts/buy-receipts.compon
     ProductComponent,
     BuyComponent,
     SellComponent,
-    BuyReceiptsComponent
+    BuyReceiptsComponent,
+    SellReceiptsComponent,
   ]
 })
 

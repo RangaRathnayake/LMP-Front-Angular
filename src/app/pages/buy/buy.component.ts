@@ -163,9 +163,10 @@ export class BuyComponent implements OnInit {
     this.wastage = 0;
     this.checkboxValue = false;
   }
-
+  disabled = true;
   save() {
     if (this.selectedCus) {
+      this.disabled = false;
       let userD = JSON.parse(localStorage.getItem('user'));;
       this.userId = userD.id;
       let buy = {
@@ -174,6 +175,7 @@ export class BuyComponent implements OnInit {
         cusMobNo: this.selectedCus.mobile,
         user: this.userId,
         date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+        time: this.datePipe.transform(this.myDate, 'HH:mm:ss'),
         product: this.product,
         buyItems: this.buyItems,
         total: this.totalAmount,
@@ -196,6 +198,7 @@ export class BuyComponent implements OnInit {
           this.totalAmount = '';
           this.selectedCus = '';
           window.location.href= this.reportPath + 'buy_copy.html?data=' + JSON.stringify(buy);
+          this.disabled = true;
           // this.alart.showNotification('success', 'product save');
           //this.getProductList();
         }
