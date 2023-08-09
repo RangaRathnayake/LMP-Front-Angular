@@ -32,6 +32,8 @@ import { BuyComponent } from 'app/pages/buy/buy.component';
 import { SellComponent } from 'app/pages/sell/sell.component';
 import { BuyReceiptsComponent } from 'app/pages/buy-receipts/buy-receipts.component';
 import { SellReceiptsComponent } from 'app/pages/sell-receipts/sell-receipts.component';
+import { ReportDashboardComponent } from 'app/pages/report-dashboard/report-dashboard.component';
+import { DailyReportComponent } from 'app/pages/daily-report/daily-report.component';
 
 @NgModule({
   imports: [
@@ -69,6 +71,8 @@ import { SellReceiptsComponent } from 'app/pages/sell-receipts/sell-receipts.com
     SellComponent,
     BuyReceiptsComponent,
     SellReceiptsComponent,
+    ReportDashboardComponent,
+    DailyReportComponent,
   ]
 })
 

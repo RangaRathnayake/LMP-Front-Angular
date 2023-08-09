@@ -16,7 +16,7 @@ export let ROUTES: RouteInfo[] = [
   { path: '/sell', title: 'Sell', icon: 'arrow_back', class: '' },
   // { path: '/sellReceipts', title: 'Sell Receipt', icon: 'arrow_back', class: '' },
   { path: '/userlist', title: 'Users', icon: 'group_add', class: '' },
-  { path: '/icons', title: 'Reports', icon: 'bubble_chart', class: '' },
+  { path: '/reportDashboard', title: 'Reports', icon: 'bubble_chart', class: '' },
   // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
   // { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
   // { path: '/users', title: 'Users',  icon:'notifications', class: '' },

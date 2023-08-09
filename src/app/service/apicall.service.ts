@@ -13,8 +13,17 @@ export class ApicallService {
 
   constructor(private http: HttpClient) { }
 
-  post(url, param, fun) { this.http.post(this.apiurl + url, param).subscribe(result => fun(result), error => {
-    console.log(error); fun(error) }); }
+  post(url, param, fun) {
+    this.http.post(this.apiurl + url, param).subscribe(result => fun(result), error => {
+      console.log(error); fun(error)
+    });
+  }
+
+  put(url, param, fun) {
+    this.http.put(this.apiurl + url, param).subscribe(result => fun(result), error => {
+      console.log(error); fun(error)
+    });
+  }
 
   get(url, fun) { this.http.get(this.apiurl + url).subscribe(result => fun(result), error => fun(error)); }
 

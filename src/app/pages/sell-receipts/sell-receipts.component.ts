@@ -45,4 +45,13 @@ export class SellReceiptsComponent implements OnInit {
     })
   }
 
+  reqCancelReceipt(id){
+    console.log(id);
+    this.apiCall.put('sell/' + id, { status: 2}, 
+    data => {
+      this.getReceiptlist();
+      this.alart.showNotification('success', id + ' Receipt successfully cancelled');
+    })
+  }
+
 }
