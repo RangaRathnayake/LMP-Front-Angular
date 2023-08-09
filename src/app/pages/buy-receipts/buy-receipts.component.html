@@ -2,9 +2,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-success">
                     <h4 class="card-title">Reprint or Cancel Buy Receipts</h4>
-                    <p class="card-category"></p>
+                    <p class="card-category">*Receipts issued today can be cancelled</p>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -12,30 +12,42 @@
 
                             <mat-table sortpen [dataSource]="dataSource">
 
-                                <ng-container matColumnDef="name">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Name</mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                                <ng-container matColumnDef="recId">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Receipt No</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
                                 </ng-container>
 
-                                <ng-container matColumnDef="utype.name">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef>Type
+                                <ng-container matColumnDef="dateTime">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Date
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.utype.name}} </mat-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.date | date: 'yyyy-MM-dd'}} / {{element.time}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cus_name">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Customer
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.cus_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="total">
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Amount
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.total}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="id">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef> Reprint
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Reprint
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element"><button mat-button
-                                            (click)="getuserdata(element.id)">More</button>
+                                            (click)="getuserdata(element.id)">Reprint</button>
                                     </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="receptid">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef> Cancel
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Cancel
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element"><button mat-button
-                                            (click)="getuserdata(element.id)">More</button>
+                                            (click)="reqCancelReceipt(element.id)">Cancel</button>
                                     </mat-cell>
                                 </ng-container>
 

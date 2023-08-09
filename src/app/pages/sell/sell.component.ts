@@ -162,6 +162,7 @@ export class SellComponent implements OnInit {
         cusMobNo: this.selectedCus.mobile,
         user: this.userId,
         date: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+        time: this.datePipe.transform(this.myDate, 'HH:mm:ss'),
         product: this.product,
         sellItems: this.sellItems,
         total: this.totalAmount,

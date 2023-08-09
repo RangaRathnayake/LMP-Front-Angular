@@ -15,6 +15,8 @@ import { BuyComponent } from 'app/pages/buy/buy.component';
 import { SellComponent } from 'app/pages/sell/sell.component';
 import { BuyReceiptsComponent } from 'app/pages/buy-receipts/buy-receipts.component';
 import { SellReceiptsComponent } from 'app/pages/sell-receipts/sell-receipts.component';
+import { ReportDashboardComponent } from 'app/pages/report-dashboard/report-dashboard.component';
+import { DailyReportComponent } from 'app/pages/daily-report/daily-report.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -32,5 +34,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'sell', component: SellComponent },
     { path: 'buyReceipts', component: BuyReceiptsComponent },
     { path: 'sellReceipts', component: SellReceiptsComponent },
+    { path: 'reportDashboard', component: ReportDashboardComponent },
+    { path: 'dailyReport', component: DailyReportComponent },
    
 ];
