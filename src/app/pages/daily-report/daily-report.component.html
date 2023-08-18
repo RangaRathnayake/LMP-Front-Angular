@@ -7,48 +7,63 @@
                     <p class="card-category">*Daily buy and sell receipt reports</p>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
 
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-md-12">
+                            <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button value="buy" checked (change)="onRadioChange($event)">Buy Receipt Report</mat-radio-button>
+                                <mat-radio-button value="sell" style="margin-left: 16px;" (change)="onRadioChange($event)">Sell Receipt Report</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <input type="date" matInput placeholder="Start Date" [(ngModel)]="startdate">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <input type="date" matInput placeholder="End Date" [(ngModel)]="endDate">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <button mat-raised-button class="btn btn-info btn-block pull-right" (click)="loadBuyReport();">Load Report</button>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <!-- <div class="col-md-12">
                             <mat-table sortpen [dataSource]="dataSource">
 
                                 <ng-container matColumnDef="recId">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Receipt No</mat-header-cell>
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef
+                                        style="font-size: medium; font-weight: bold;">Receipt No</mat-header-cell>
                                     <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="dateTime">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Date
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef
+                                        style="font-size: medium; font-weight: bold;">Date
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.date | date: 'yyyy-MM-dd'}} / {{element.time}} </mat-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.date | date: 'yyyy-MM-dd'}} /
+                                        {{element.time}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="cus_name">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Customer
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef
+                                        style="font-size: medium; font-weight: bold;">Customer
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element"> {{element.cus_name}} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="total">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Amount
+                                    <mat-header-cell mat-sort-header *matHeaderCellDef
+                                        style="font-size: medium; font-weight: bold;">Amount
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element"> {{element.total}} </mat-cell>
-                                </ng-container>
-
-                                <ng-container matColumnDef="id">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Reprint
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"><button mat-button
-                                            (click)="getuserdata(element.id)">Reprint</button>
-                                    </mat-cell>
-                                </ng-container>
-
-                                <ng-container matColumnDef="receptid">
-                                    <mat-header-cell mat-sort-header *matHeaderCellDef style="font-size: medium; font-weight: bold;">Cancel
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"><button mat-button
-                                            (click)="reqCancelReceipt(element.id)">Cancel</button>
-                                    </mat-cell>
                                 </ng-container>
 
                                 <mat-header-row *matHeaderRowDef=" displayedColumns"></mat-header-row>
@@ -57,8 +72,8 @@
 
                             <mat-paginator #paginatorpen [pageSizeOptions]="[10,100,200]" showFirstLastButtons>
                             </mat-paginator>
+                        </div> -->
 
-                        </div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>LMP Traders</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: small;
+    }
+
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .right {
+      text-align: left;
+    }
+
+    .alr {
+      text-align: right;
+    }
+
+    /* td,
+    th,
+    tr,
+    table {
+      border-top: 1px solid black;
+      border-collapse: collapse;
+    } */
+
+    .styled-table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      /* min-width: 400px; */
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-table thead tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .styled-table th,
+    .styled-table td {
+      padding: 12px 15px;
+    }
+
+    .styled-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+      border-bottom: 2px solid #009879;
+    }
+
+    .styled-table tbody tr.active-row {
+      font-weight: bold;
+      color: #009879;
+    }
+
+    @media print {
+
+      .no-print,
+      .no-print * {
+        display: none !important;
+      }
+    }
+
+    @media print {
+      #printPageButton {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body style="margin: 5px">
+  <div style="text-align: center">
+    <div style="width: 100%">
+      <table style="width: 100%">
+        <tr>
+          <td style="text-align: center; font-weight: bold">
+            <h2>
+              <u><b>LMP Traders Buy Daily Report</b></u>
+            </h2>
+            <p>Starting Date:</b> <span id="sDate"></span> / End Date:</b> <span id="eDate"></span> </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="width: 100%">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <td>Receipt No</td>
+            <td>Date / Time</td>
+            <td>Customer</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
+        <tbody id='table-body'>
+
+        </tbody>
+        <tr>
+          <th colspan="3" align="right">Total Amount :</th>
+          <td><span id="fullTotal" style="font-weight: bold; font-size: small;"></span></td>
+        </tr>
+      </table>
+    </div>
+    <hr class="no-print" />
+    <button class="no-print" id="printPageButton" onclick="window.print()">
+      PRINT
+    </button>
+    <br />
+  </div>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript">
+    let searchParams = new URLSearchParams(window.location.search);
+    // console.log(searchParams);
+    searchParams.has('data'); // true
+    if (searchParams.has('data')) {
+      let param = JSON.parse(searchParams.get('data'));
+      // console.log(param);
+      $('#eDate').html(param.EndDate);
+      $('#sDate').html(param.StartDate);
+
+      var buyList = [];
+      $(document).ready(function () {
+        fetch('http://localhost:3000/buy/ByDateRange/' + param.StartDate + '&' + param.EndDate, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then(response => response.json())
+          .then(json => buyList = json)
+          .then(() => {
+            setTable(buyList);
+            console.log(buyList);
+          }
+          );
+      });
+      function setTable(arrayOfObj) {
+
+        var total = 0.00;
+        for (var i = 0; i < arrayOfObj.length; i++) {
+          total = total + parseInt(arrayOfObj[i].total);
+        }
+        $('#fullTotal').html(total.toFixed(2));
+
+        var table = document.getElementById('table-body')
+        arrayOfObj.forEach((obj) => {
+          var tds = ''
+          tds = `<td class='column-id' style="font-weight: bold; font-size: small;">${obj.id}</td>
+          <td class='column-name' style="font-weight: bold; font-size: small;">${obj.df} / ${obj.time}</td>
+          <td class='column-address' style="font-weight: bold; font-size: small;">${obj.cus_name}</td>
+          <td class='column-zip_code' style="font-weight: bold; font-size: small;">${obj.total}</td>
+          `
+
+          var objTr = `<tr>${tds}</tr>`
+
+          obj.buyitems.forEach(subObj => {
+            objTr += `<tr>  
+                <td>PRO - ${subObj.name} / ${subObj.quality}</td>
+                <td>QTY - ${subObj.qty}</td>
+                <td>UP - ${subObj.unitPrice}</td>
+                <td>SUB - ${subObj.subTotal}</td>
+              </tr>`
+          })
+          
+          table.innerHTML += objTr
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>

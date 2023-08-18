@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlartService } from 'app/service/alart.service';
 import { ApicallService } from 'app/service/apicall.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-daily-report',
@@ -13,11 +14,17 @@ import { ApicallService } from 'app/service/apicall.service';
 })
 export class DailyReportComponent implements OnInit {
 
+  reportPath = environment.reportPath;
+
   myDate = new Date();
   curDate;
   buyReceiptList;
 
-  displayedColumns: string[] = ['recId', 'dateTime', 'cus_name', 'total', 'id', 'receptid'];
+  selectedType = 'buy';
+  startdate;
+  endDate;
+
+  displayedColumns: string[] = ['recId', 'dateTime', 'cus_name', 'total'];
   dataSource = <any>[];
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -26,7 +33,7 @@ export class DailyReportComponent implements OnInit {
 
   @ViewChild('paginatorpen', { static: true }) paginatorpen: MatPaginator;
 
-  constructor(private apiCall: ApicallService, private alart: AlartService,private datePipe: DatePipe) { }
+  constructor(private apiCall: ApicallService, private alart: AlartService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.getReceiptlist();
@@ -43,5 +50,36 @@ export class DailyReportComponent implements OnInit {
       this.dataSource.sort = this.sortpen;
     })
   }
+
+  onRadioChange(event: any) {
+    this.selectedType = event.value;
+  }
+
+  loadBuyReport() {
+    if (this.startdate && this.endDate) {
+
+
+    if (this.selectedType == 'sell') {
+      let obj = {
+        'StartDate': this.startdate,
+        'EndDate': this.endDate
+      }
+      // window.location.href = this.reportPath + 'daily_sell_report.html?data=' + JSON.stringify(obj);
+      window.open(this.reportPath + 'daily_sell_report.html?data=' + JSON.stringify(obj), '_blank');
+    } else if (this.selectedType == 'buy') {
+      let obj = {
+        'StartDate': this.startdate,
+        'EndDate': this.endDate
+      }
+      // window.location.href= this.reportPath + 'daily_buy_report.html?data=' + JSON.stringify(obj);
+      window.open(this.reportPath + 'daily_buy_report.html?data=' + JSON.stringify(obj), '_blank');
+    }
+    
+
+  }
+  else {
+    this.alart.showNotification('warning', 'Select dates');
+  }
+}
 
 }
