@@ -96,7 +96,7 @@
         <tr>
           <td style="text-align: center; font-weight: bold">
             <h2>
-              <u><b>LMP Traders Buy Daily Report</b></u>
+              <u><b>LMP Traders Sell Daily Report</b></u>
             </h2>
             <p>Starting Date:</b> <span id="sDate"></span> / End Date:</b> <span id="eDate"></span> </p>
           </td>
@@ -141,7 +141,7 @@
 
       var buyList = [];
       $(document).ready(function () {
-        fetch('http://localhost:3000/buy/ByDateRange/' + param.StartDate + '&' + param.EndDate, {
+        fetch('http://localhost:3000/sell/ByDateRange/' + param.StartDate + '&' + param.EndDate, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         })
@@ -172,7 +172,7 @@
 
           var objTr = `<tr>${tds}</tr>`
 
-          obj.buyitems.forEach(subObj => {
+          obj.sellitems.forEach(subObj => {
             objTr += `<tr>  
                 <td>PRO - ${subObj.name} / ${subObj.quality}</td>
                 <td>QTY - ${subObj.qty}</td>

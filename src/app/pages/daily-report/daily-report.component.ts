@@ -56,20 +56,30 @@ export class DailyReportComponent implements OnInit {
   }
 
   loadBuyReport() {
+    if (this.startdate && this.endDate) {
+
+
     if (this.selectedType == 'sell') {
       let obj = {
         'StartDate': this.startdate,
         'EndDate': this.endDate
       }
-      window.location.href = this.reportPath + 'daily_sell_report.html?data=' + JSON.stringify(obj);
+      // window.location.href = this.reportPath + 'daily_sell_report.html?data=' + JSON.stringify(obj);
+      window.open(this.reportPath + 'daily_sell_report.html?data=' + JSON.stringify(obj), '_blank');
     } else if (this.selectedType == 'buy') {
       let obj = {
         'StartDate': this.startdate,
         'EndDate': this.endDate
       }
-      window.location.href= this.reportPath + 'daily_buy_report.html?data=' + JSON.stringify(obj);
+      // window.location.href= this.reportPath + 'daily_buy_report.html?data=' + JSON.stringify(obj);
+      window.open(this.reportPath + 'daily_buy_report.html?data=' + JSON.stringify(obj), '_blank');
     }
+    
 
   }
+  else {
+    this.alart.showNotification('warning', 'Select dates');
+  }
+}
 
 }
